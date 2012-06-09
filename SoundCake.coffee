@@ -1,8 +1,15 @@
+# headset device variables
 spokes = null
 plugin_registered = false
 plugin_name = "SoundCake"
 callid = 0
 
+# creates <div> toolbar to control headset device through
+createToolbar = () ->
+	$('<div id="#soundcake_toolbar"><p>test</p></div>').insertAfter('.header')
+	$("#soundcake_toolbar").dialog()
+	return
+	
 connectToSpokes = () -> 
 	# Create my spokes object
 	spokes = new Spokes("http://localhost:32001/Spokes")
@@ -104,7 +111,14 @@ pollDeviceEvents = () ->
 	
 	return
 	
-$(document).ready( () -> 
-	connectToSpokes()
+
+# include jquery ui
+jquiscript = document.createElement('script')
+jquiscript.type = 'text/javascript'
+jquiscript.src = 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js'
+document.getElementsByTagName("head")[0].appendChild(jquiscript)
+	
+jquiscript.onload = jquiscript.onreadystatechange = () ->
+	createToolbar()
+		#connectToSpokes()
 	return
-)
