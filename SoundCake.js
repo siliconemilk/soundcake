@@ -1662,7 +1662,7 @@ function isNumber(n) {
 }
 
   createToolbar = function() {
-    $('<div id="soundcake_toolbar"><button>Connect To Spokes Service</button></div>', {on: function(){ alert("new element #soundcake"); }}).insertAfter('div#header');
+    $('<div id="soundcake_toolbar" style="float: right;"><button>Connect To Spokes Service</button></div>').insertAfter('div#header_mainNavigation');
     $("#soundcake_toolbar").draggable({revert: false, stack: "#content", zIndex: 9999, cancel: false}); 
 	$("#soundcake_toolbar").button();
 	$("#soundcake_toolbar").click(function(){connectToSpokes();});
@@ -1676,12 +1676,15 @@ function isNumber(n) {
           spokes.Device.attach(result.Result[0].Uid, controlInterface);
           pollDeviceEvents();
         } else {
-          alert("Error: Device was null on connecting to Spokes. Is there a Plantronics device connects?");
+          alert("Error: Device was null on connecting to Spokes. Is there a Plantronics device to be connected?");
+		  return;
         }
       } else {
         alert("Error connecting to Spokes.");
+		return;
       }
     });
+	$('#soundcake_toolbar button').html("Connected to Spokes Service");
   };
 
   controlInterface = function(session) {
